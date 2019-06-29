@@ -95,6 +95,18 @@ module.exports = function(router){
         }
     });
 
+    router.get('/task', function(req,res){
+		var params = url.parse(req.url, true).query
+        if(!params.userid){
+            res.json({success:false,msg:'userid not provided'});
+        } else {
+            Task.find( {userid: params.userid} ).exec(function(err, tasks) {
+                if(err) throw err;
+                else res.json({tasks:tasks});
+            });
+        }
+	});
+	
     router.post('/comment', function(req,res){
         var comment = new Comment();
 
@@ -104,8 +116,7 @@ module.exports = function(router){
 
         if(!req.body.comment || !req.body.userid){
             res.json({success:false,msg:'Ensure all information were provided'});
-        }
-        else{
+        } else {
             comment.save(function(err){
                 if(err) {
                     res.json({success:false,msg:'Could not post comment'});
@@ -129,17 +140,24 @@ module.exports = function(router){
         }
 	});
 	
-    router.get('/task', function(req,res){
-		var params = url.parse(req.url, true).query
-        if(!params.userid){
-            res.json({success:false,msg:'userid not provided'});
-        } else {
-            Task.find( {userid: params.userid} ).exec(function(err, tasks) {
-                if(err) throw err;
-                else res.json({tasks:tasks});
-            });
-        }
-    });
+	router.post('/juniors', function(req,res){
+		console.log(req.body);
+		var userid = req.body.userid;
+		var juniorid = req.body.juniorid;
+
+		if(!req.body.userid || !req.body.juniorid){
+			res.json({success:false,msg:'Ensure all information were provided'});
+		} else {
+			User.updateOne({userid:userid}, {"$push": {"juniors": juniorid}},{ "upsert": true }).exec(function(err, user) {
+				if(err) throw err;
+				// else res.json({success:true,msg:'junior added!'});
+			})
+			User.findOneAndUpdate({userid:juniorid}, {$push: {seniors: userid}}).exec(function(err, user) {
+				if(err) throw err;
+				else res.json({success:true,msg:'junior added!'});
+			})
+		}
+	});
 
     router.use(function(req,res,next){
         var token = req.body.token || req.body.query || req.headers['x-access-token'];
