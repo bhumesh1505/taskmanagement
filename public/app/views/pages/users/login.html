@@ -1,0 +1,36 @@
+<!-- Heading -->
+<div class="row text-center">
+    <div class="container">
+        <h2 class="section-heading">User login</h2>
+    </div>
+</div>
+<!-- Heading -->
+
+<form ng-submit="loginUser(data)">
+    <label>Username:</label>
+    <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model="data.username" autocomplete="false">
+    <br>
+
+    <label>Password:</label>
+    <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model="data.password" autocomplete="false">
+    <br>
+
+    <button class="btn btn-primary" type="submit">Login</button>
+</form>
+
+<!-- Loading Icon (Bootstrap) -->
+<div class="jumbotron text-center" ng-show="loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading....</p>
+</div>
+<br>
+<br>
+
+<!-- Custom Messages -->
+<div class="row show-hide-message" ng-show="successMsg">
+    <div class="alert alert-success">{{successMsg}}</div>
+</div>
+<!-- Custom Messages -->
+<div class="row show-hide-message" ng-show="errorMsg">
+    <div class="alert alert-danger">{{errorMsg}}</div>
+</div>

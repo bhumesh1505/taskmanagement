@@ -1,0 +1,26 @@
+{
+  "name": "taskmanagement",
+  "version": "1.0.0",
+  "description": "task management for employees",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhumesh1505/taskmanagement.git"
+  },
+  "author": "bhumesh keval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bhumesh1505/taskmanagement/issues"
+  },
+  "homepage": "https://github.com/bhumesh1505/taskmanagement#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.2",
+    "morgan": "^1.9.1"
+  }
+}
