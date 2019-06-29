@@ -15,6 +15,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.use('/api',appRoutes);
 
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb+srv://bhumesh1998:bhumesh1998@cluster0-ubi02.mongodb.net/taskmanagement?retryWrites=true&w=majority',function(err){
 	if(err){
 		console.log("failed to connect to database: " + err);
@@ -24,6 +27,7 @@ mongoose.connect('mongodb+srv://bhumesh1998:bhumesh1998@cluster0-ubi02.mongodb.n
 		console.log("Successfully connected to MongoDB");
 	}
 });
+
 
 app.get('*', function (req,res) {
 	res.sendFile(path.join(__dirname + '/public/app/views/index.html'))

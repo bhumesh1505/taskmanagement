@@ -1,15 +1,9 @@
-var express 	= require('express');
-var app 		= express();
-var User 		= require('../models/user');
-var Comment 	= require('../models/comment');
-var Task 		= require('../models/task');
-var jwt 		= require('jsonwebtoken');
-var secret      = 'secret';
-var bodyParser	= require('body-parser');
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+var User 		= require('../models/user'),
+	Comment 	= require('../models/comment'),
+	Task 		= require('../models/task'),
+	jwt 		= require('jsonwebtoken'),
+	secret      = 'secret',
+	url         = require('url');
 
 module.exports = function(router){
 
@@ -79,7 +73,7 @@ module.exports = function(router){
         }
     });
 
-    router.post('/createtask', function(req,res){
+    router.post('/task', function(req,res){
         var task = new Task();
 
         task.name = req.body.name;
@@ -100,7 +94,6 @@ module.exports = function(router){
             });
         }
     });
-
 
     router.post('/comment', function(req,res){
         var comment = new Comment();
@@ -125,16 +118,25 @@ module.exports = function(router){
     });
 
     router.get('/comment', function(req,res){
-
-        var userid = req.body.userid;
-        console.log(req);
-        if(!userid){
+		var params = url.parse(req.url, true).query
+        if(!params.userid){
             res.json({success:false,msg:'userid not provided'});
-        }
-        else{
-            Comment.find( {userid:userid} ).exec(function(err, comments) {
+        } else {
+            Comment.find( {userid: params.userid} ).exec(function(err, comments) {
                 if(err) throw err;
                 else res.json({comments:comments});
+            });
+        }
+	});
+	
+    router.get('/task', function(req,res){
+		var params = url.parse(req.url, true).query
+        if(!params.userid){
+            res.json({success:false,msg:'userid not provided'});
+        } else {
+            Task.find( {userid: params.userid} ).exec(function(err, tasks) {
+                if(err) throw err;
+                else res.json({tasks:tasks});
             });
         }
     });
