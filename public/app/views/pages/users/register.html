@@ -8,6 +8,11 @@
 <!-- Heading -->
 
 <form ng-submit="regUser(data)">
+
+    <label>Name:</label>
+    <input class="form-control" type="text" name="name" placeholder="please enter name" ng-model="data.name" autocomplete="false">
+    <br>
+
     <label>Email:</label>
     <input class="form-control" type="email" name="email" placeholder="please enter email" ng-model="data.email" autocomplete="false">
     <br>
@@ -19,6 +24,11 @@
     <label>Password:</label>
     <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model="data.password" autocomplete="false">
     <br>
+
+    <label>Password:</label>
+    <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model="data.password" autocomplete="false">
+    <br>
+
 
     <button class="btn btn-primary" type="submit">Register</button>
 </form>
