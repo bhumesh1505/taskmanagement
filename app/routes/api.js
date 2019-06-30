@@ -72,7 +72,8 @@ module.exports = function(router){
             });
         }
     });
-
+	
+	// post task for a userid
     router.post('/task', function(req,res){
         var task = new Task();
 
@@ -94,7 +95,21 @@ module.exports = function(router){
             });
         }
     });
-
+	
+	// get all tasks for a userid
+    router.get('/tasks', function(req,res){
+		var params = url.parse(req.url, true).query
+        if(!params.userid){
+            res.json({success:false,msg:'userid not provided'});
+        } else {
+            Task.find( {userid: params.userid} ).exec(function(err, tasks) {
+                if(err) throw err;
+                else res.json({tasks:tasks});
+            });
+        }
+	});
+	
+	// post comment for a userid
     router.post('/comment', function(req,res){
         var comment = new Comment();
 
@@ -104,8 +119,7 @@ module.exports = function(router){
 
         if(!req.body.comment || !req.body.userid){
             res.json({success:false,msg:'Ensure all information were provided'});
-        }
-        else{
+        } else {
             comment.save(function(err){
                 if(err) {
                     res.json({success:false,msg:'Could not post comment'});
@@ -117,7 +131,8 @@ module.exports = function(router){
         }
     });
 
-    router.get('/comment', function(req,res){
+	// get all comments for a userid
+    router.get('/comments', function(req,res){
 		var params = url.parse(req.url, true).query
         if(!params.userid){
             res.json({success:false,msg:'userid not provided'});
@@ -129,17 +144,37 @@ module.exports = function(router){
         }
 	});
 	
-    router.get('/task', function(req,res){
+	// create user juniors mapping
+	router.post('/junior', function(req,res){
+		var userid = req.body.userid;
+		var juniorid = req.body.juniorid;
+
+		if(!req.body.userid || !req.body.juniorid){
+			res.json({success:false,msg:'Ensure all information were provided'});
+		} else {
+			User.updateOne({userid:userid}, {"$push": {"juniors": juniorid}},{ "upsert": true }).exec(function(err, user) {
+				if(err) throw err;
+				// else res.json({success:true,msg:'junior added!'});
+			})
+			User.findOneAndUpdate({userid:juniorid}, {$push: {seniors: userid}}).exec(function(err, user) {
+				if(err) throw err;
+				else res.json({success:true,msg:'junior added!'});
+			})
+		}
+	});
+
+	// get junior's details with a juniorid
+	router.get('/junior', function(req,res){
 		var params = url.parse(req.url, true).query
         if(!params.userid){
             res.json({success:false,msg:'userid not provided'});
         } else {
-            Task.find( {userid: params.userid} ).exec(function(err, tasks) {
-                if(err) throw err;
-                else res.json({tasks:tasks});
-            });
+			User.find({userid:params.userid}).exec(function(err, juniorData){
+				if(err) throw err;
+				else res.json({juniorData: juniorData});
+			})
         }
-    });
+	});
 
     router.use(function(req,res,next){
         var token = req.body.token || req.body.query || req.headers['x-access-token'];
