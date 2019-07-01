@@ -98,7 +98,7 @@ module.exports = function(router){
 	
 	// get all tasks for a userid
     router.get('/tasks', function(req,res){
-		var params = url.parse(req.url, true).query
+		var params = url.parse(req.url, true).query;
         if(!params.userid){
             res.json({success:false,msg:'userid not provided'});
         } else {
@@ -133,7 +133,7 @@ module.exports = function(router){
 
 	// get all comments for a userid
     router.get('/comments', function(req,res){
-		var params = url.parse(req.url, true).query
+		var params = url.parse(req.url, true).query;
         if(!params.userid){
             res.json({success:false,msg:'userid not provided'});
         } else {
@@ -163,18 +163,69 @@ module.exports = function(router){
 		}
 	});
 
-	// get junior's details with a juniorid
-	router.get('/junior', function(req,res){
-		var params = url.parse(req.url, true).query
+    // get user's details
+    router.get('/user', function(req,res){
+        var params = url.parse(req.url, true).query
         if(!params.userid){
             res.json({success:false,msg:'userid not provided'});
         } else {
-			User.find({userid:params.userid}).exec(function(err, juniorData){
-				if(err) throw err;
-				else res.json({juniorData: juniorData});
-			})
+            User.findOne({userid:params.userid}).exec(function(err, data){
+                if(err){ throw err; }
+                else {
+                    res.json({data: data});
+                }
+            })
         }
-	});
+    });
+
+    // get user's details
+    router.get('/users', function(req,res){
+        var params = url.parse(req.url, true).query
+        if(!params.userid){
+            res.json({success:false,msg:'userid not provided'});
+        } else {
+            var stringIds = params.userid;
+            console.log(stringIds);
+            var ids = stringIds.split(',');
+            console.log(ids);
+            User.find({userid:{"$in":ids}}).exec(function(err, data){
+                if(err){ throw err; }
+                else {
+                    res.json({data: data});
+                }
+            })
+        }
+    });
+
+    // get junior's id
+    router.get('/juniorsid', function(req,res){
+        var params = url.parse(req.url, true).query
+        if(!params.userid){
+            res.json({success:false,msg:'userid not provided'});
+        } else {
+            User.findOne({userid:params.userid}).exec(function(err, juniorData){
+                if(err){ throw err; }
+                else {
+                    res.json({juniors: juniorData.juniors});
+                }
+            })
+        }
+    });
+
+    // get junior's id
+    router.get('/seniorsid', function(req,res){
+        var params = url.parse(req.url, true).query
+        if(!params.userid){
+            res.json({success:false,msg:'userid not provided'});
+        } else {
+            User.find({userid:params.userid}).exec(function(err, data){
+                if(err){ throw err; }
+                else {
+                    res.json({juniors: data.seniors});
+                }
+            })
+        }
+    });
 
     router.use(function(req,res,next){
         var token = req.body.token || req.body.query || req.headers['x-access-token'];

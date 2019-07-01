@@ -1,0 +1,27 @@
+<script>
+    $('#usersidebar-wrapper').css({left: '250px'});
+</script>
+<div class="">
+    <h3 style="font-weight: 600; margin-top: 10px;">My Tasks</h3>
+    <hr>
+
+    <div class="panel panel-primary filterable" >
+        <div class="panel-heading" >
+            <h3 class="panel-title">My Tasks</h3>
+        </div>
+        <table class="table"  id="analystTable" ng-show="gotTasks">
+            <thead>
+            <tr class="filters">
+                <th ng-repeat="heading in tasksheander" id="{{heading}}" class="text-center">{{heading}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in tasksData">
+                <td ng-repeat="value in taskskeys">{{row[value]}} </td>
+            </tr>
+            </tbody>
+        </table>
+        <h1 ng-show="nodata">NO TASKS</h1>
+    </div>
+    <br />
+</div>

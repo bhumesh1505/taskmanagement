@@ -5,6 +5,8 @@ angular.module('mainController',[])
         $scope.isLoggedIn = false;
         $scope.pageLoaded = false;
 
+        var errorcallback = function(data){
+        };
         // every time when route changes it will execute this function
         $rootScope.$on('$routeChangeStart', function(){
 
@@ -12,18 +14,23 @@ angular.module('mainController',[])
             $scope.errorMsg = false;
 
             if(Auth.isLoggedIn()){
-                Auth.getUserFromToken().then(function(data){
-                    $scope.userdetails.username = data.data.username;
-                    $scope.userdetails.email = data.data.email;
+                $scope.isLoggedIn = true;
+                $scope.pageLoaded = true;
+                var successcallback = function(data){
+                    $scope.userdetails.username = data.username;
+                    $scope.userdetails.userid = data.userid;
+                    $scope.userdetails.email = data.email;
+                    $scope.userdetails.name = data.name;
+                    $scope.userdetails.gender = data.gender;
+                    $scope.userdetails.contact = data.contact;
+
                     $scope.isLoggedIn = true;
                     $scope.pageLoaded = true;
                     fadeout();
-                });
+                };
+                Auth.getUserFromToken(successcallback,errorcallback);
             }
             else {
-                $scope.userdetails = {};
-                $scope.isLoggedIn = false;
-                $scope.pageLoaded = true;
                 fadeout();
             }
         });
@@ -31,27 +38,23 @@ angular.module('mainController',[])
         $scope.loginUser = function(data){
             $scope.successMsg = false;
             $scope.errorMsg = false;
-            Auth.login(data).then(function(data){
-                if(data.data.success)
-                {
-                    $scope.successMsg = data.data.msg;
-                    $timeout(function(){
-                        $location.path('/profile');
-                    },1000);
-                }
-                else
-                {
-                    $scope.errorMsg = data.data.msg;
-                }
-            })
+            var successcallback = function(data){
+                $scope.successMsg = data.msg;
+                $timeout(function(){
+                    $location.path('/profile');
+                },500);
+            };
+            Auth.login(data.username,data.password,successcallback,errorcallback);
+
         };
 
         $scope.logout = function(){
             Auth.logout();
+            $scope.isLoggedIn = false;
             $location.path('/logout');
             $timeout(function(){
                 $location.path('/login');
-            },1000);
+            },500);
 
         };
 });

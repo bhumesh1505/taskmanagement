@@ -3,10 +3,20 @@ angular.module('authServices',[])
     var userFactory = {};
 
     //Auth.login(userData)
-    userFactory.login = function(userData){
-        return $http.post('/api/login',userData).then(function(data){
-            AuthToken.setToken(data.data.token);
-            return data;
+    userFactory.login = function(username,password,successcallback,errorcallback){
+        var data = {
+            username:username,
+            password:password
+        };
+        return $http({
+            url: '/api/login',
+            method: "POST",
+            data:data
+        }).success(function(data){
+            AuthToken.setToken(data.token);
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
         });
     };
 
@@ -24,23 +34,98 @@ angular.module('authServices',[])
         AuthToken.removeToken();
     };
 
-    /*
-    //Auth.getUserFromToken()
-    userFactory.getUserFromToken = function(){
-        var data = {};
-        data.token = AuthToken.getToken();
-        return $http.post('/api/me',data).then(function(data){
-            return data;
+    //Auth.getUserDetailsUsingId()
+    userFactory.getUserDetailsUsingIds = function(userid,successcallback,errorcallback){
+
+        var data = {
+            userid:userid
+        };
+        return $http({
+            url: '/api/users',
+            method: "GET",
+            params:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
         });
     };
-    */
 
     //Auth.getUserFromToken()
-    userFactory.getUserFromToken = function(){
-        return $http.post('/api/me').then(function(data){
-            return data;
+    userFactory.getUserFromToken = function(successcallback,errorcallback){
+            return $http({
+                url: '/api/me',
+                method: "POST"
+            }).success(function(data){
+                successcallback(data);
+            }).error(function(data) {
+                errorcallback(data);
+            });
+        };
+
+    //Auth.getTasks()
+    userFactory.getTasks = function(userid,successcallback,errorcallback){
+        var data = {
+            userid : userid
+        };
+        return $http({
+            url: '/api/tasks',
+            method: "GET",
+            params:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
         });
     };
+
+    //Auth.getJuniorsId()
+    userFactory.getJuniorsId = function(userid,successcallback,errorcallback){
+        var data = {
+            userid : userid
+        };
+        return $http({
+            url: '/api/juniorsid',
+            method: "GET",
+            params:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
+        });
+    };
+
+    //Auth.getSeniorsId()
+    userFactory.getSeniorsId = function(userid,successcallback,errorcallback){
+        var data = {
+            userid : userid
+        };
+        return $http({
+            url: '/api/seniorsid',
+            method: "GET",
+            params:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
+        });
+    };
+
+    userFactory.getComments = function(userid,successcallback,errorcallback){
+            var data = {
+                userid : userid
+            };
+            return $http({
+                url: '/api/comments',
+                method: "GET",
+                params:data
+            }).success(function(data){
+                successcallback(data);
+            }).error(function(data) {
+                errorcallback(data);
+            });
+        };
+
     return userFactory;
 })
 

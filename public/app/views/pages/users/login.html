@@ -5,19 +5,19 @@
     </div>
 </div>
 <!-- Heading -->
+<div class="formContainer">
+    <form ng-submit="loginUser(data)">
+        <label>Username:</label>
+        <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model="data.username" autocomplete="false">
+        <br>
 
-<form ng-submit="loginUser(data)">
-    <label>Username:</label>
-    <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model="data.username" autocomplete="false">
-    <br>
+        <label>Password:</label>
+        <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model="data.password" autocomplete="false">
+        <br>
 
-    <label>Password:</label>
-    <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model="data.password" autocomplete="false">
-    <br>
-
-    <button class="btn btn-primary" type="submit">Login</button>
-</form>
-
+        <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+</div>
 <!-- Loading Icon (Bootstrap) -->
 <div class="jumbotron text-center" ng-show="loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>

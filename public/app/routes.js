@@ -19,8 +19,26 @@ angular.module('appRoutes',['ngRoute'])
             templateUrl:'app/views/pages/users/logout.html'
         })
         .when('/profile', {
-            templateUrl:'app/views/pages/users/profile.html'
+            templateUrl:'app/views/pages/users/profile.html',
+            controller:'profileCtrl'
         })
+        .when('/tasks', {
+            templateUrl:'app/views/pages/users/tasks.html',
+            controller:'tasksCtrl'
+        })
+        .when('/comments', {
+            templateUrl:'app/views/pages/users/comments.html',
+            controller:'commentsCtrl'
+        })
+        .when('/seniors', {
+            templateUrl:'app/views/pages/users/seniors.html',
+            controller:'seniorsCtrl'
+        })
+        .when('/juniors', {
+            templateUrl:'app/views/pages/users/juniors.html',
+            controller:'juniorsCtrl'
+        })
+
         .otherwise({ redirectTo: '/home' });
 
     // to remove # from url of angular
