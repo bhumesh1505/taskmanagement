@@ -13,14 +13,28 @@
         </div>
     </div>
     <hr>
-    <div class="profileContainer">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Name : </span><span>{{userinfo.name}}</span></div>
-            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Username :</span><span>{{userinfo.username}}</span></div>
-            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Userid :</span><span>{{userinfo.userid}}</span></div>
-            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Email :</span><span>{{userinfo.email}}</span></div>
-            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Contact :</span><span>{{userinfo.contact}}</span></div>
-            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Gender :</span><span>{{userinfo.gender}}</span></div>
+    <div class="panel panel-primary filterable" >
+        <div class="panel-heading" >
+            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Information</h3>
+        </div>
+        <div class="">
+            <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <div class="profileImageLogo"><i class="fa fa-user-circle"></i></div>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-9" style="padding: 45px 0px 45px 30px;">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Name : </span><span>{{userinfo.name}}</span></div>
+                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Username :</span><span>{{userinfo.username}}</span></div>
+                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Userid :</span><span>{{userinfo.userid}}</span></div>
+                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Email :</span><span>{{userinfo.email}}</span></div>
+                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Contact :</span><span>{{userinfo.contact}}</span></div>
+                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Gender :</span><span>{{userinfo.gender}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="panel panel-primary filterable" >

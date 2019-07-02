@@ -71,7 +71,8 @@
             <div class="navbar-header">
                 <span class="menu-btn"><i class="fa fa-bars" aria-hidden="true"></i></span>
                 <a class="navbar-brand topnav" style="    padding: 5px 18px; width: 185px" href="/#top">
-                    <img src="assets/images/logonavbar_yolo.png" height="auto" style="width: 100%;"></a>
+                    <img src="assets/images/logonavbar_yolo.png" height="auto" style="width: 100%;">
+                </a>
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
@@ -83,7 +84,7 @@
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li>
-                                    <a ng-click="change_password()">Profile</a>
+                                    <a href="/profile">Profile</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li class="pointer">
@@ -152,7 +153,6 @@
 
             </ul>
         </div>
-        <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper" style=" padding:0 20px;">
@@ -165,65 +165,7 @@
             </div>
         </div>
 
-
     </div>
-<!--
-
-    <nav class="navbar navbar-inverse" style="border-radius: 0px">
-        <div class="container-fluid">
-            &lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Brand</a>
-            </div>
-
-            &lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li ng-hide="isLoggedIn"><a href="/register">Register</a></li>
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li class="dropdown" ng-show="false">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li ng-show="isLoggedIn"><a href="/profile">Profile</a></li>
-                    <li ng-hide="isLoggedIn"><a href="/login">Login</a></li>
-                    <li ng-show="isLoggedIn"><a href="#" ng-click="logout()">logout</a></li>
-                    <li class="dropdown" ng-show="false">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;
-        </div>&lt;!&ndash; /.container-fluid &ndash;&gt;
-    </nav>
--->
-<!--
-    <div class="container">
-        <div ng-view></div>
-    </div>-->
     <script>
         function fadeout()
         {
