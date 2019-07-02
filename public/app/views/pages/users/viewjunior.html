@@ -1,0 +1,103 @@
+<script>
+    $('#usersidebar-wrapper').css({left: '250px'});
+</script>
+<div class="">
+    <div class="juniorHeader">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <h3 style="font-weight: 600; margin-top: 10px;">{{userinfo.name | uppercase}}'s Profile</h3>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <div style="margin-top: 10px;"><input type="text" ng-model="comment" name="comment" class="form-control inputComment" placeholder="Comment" style="width: 150px;margin-right: 5px" autocomplete="off"><input type="number" class="form-control inputComment" ng-model="rating" max="10" name="rating" placeholder="Rating" style="width: 85px;margin-right: 5px;" autocomplete="off"><button class="btn btn-primary" ng-click="submitComment(comment,rating)">Post</button></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="profileContainer">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Name : </span><span>{{userinfo.name}}</span></div>
+            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Username :</span><span>{{userinfo.username}}</span></div>
+            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Userid :</span><span>{{userinfo.userid}}</span></div>
+            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Email :</span><span>{{userinfo.email}}</span></div>
+            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Contact :</span><span>{{userinfo.contact}}</span></div>
+            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Gender :</span><span>{{userinfo.gender}}</span></div>
+        </div>
+    </div>
+    <div class="panel panel-primary filterable" >
+        <div class="panel-heading" >
+            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Tasks</h3>
+        </div>
+        <table class="table"  ng-show="gotTasks">
+            <thead>
+            <tr class="filters">
+                <th ng-repeat="heading in tasksheander" class="text-center">{{heading}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in tasksData">
+                <td ng-repeat="value in taskskeys">{{row[value]}} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div class="panel panel-primary filterable" >
+        <div class="panel-heading" >
+            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Comments</h3>
+        </div>
+        <table class="table" ng-show="gotComments">
+            <thead>
+            <tr class="filters">
+                <th ng-repeat="heading in commentsheander" class="text-center">{{heading}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in commentsData">
+                <td ng-repeat="value in commentskeys">{{row[value]}} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+
+    <div class="panel panel-primary filterable" >
+        <div class="panel-heading" >
+            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Juniors</h3>
+        </div>
+        <table class="table" ng-show="gotJuniors">
+            <thead>
+            <tr class="filters">
+                <th ng-repeat="heading in juniorsheander" class="text-center">{{heading}}</th>
+                <!--<th>View</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in juniorsData">
+                <td ng-repeat="value in juniorskeys">{{row[value]}} </td><!--
+                <td><button class="btn btn-primary" ng-click="viewUser(row.userid)">VIEW</button></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+
+    <div class="panel panel-primary filterable" >
+        <div class="panel-heading" >
+            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Seniors</h3>
+        </div>
+        <table class="table" ng-show="gotSeniors">
+            <thead>
+            <tr class="filters">
+                <th ng-repeat="heading in seniorsheander" class="text-center">{{heading}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in seniorsData">
+                <td ng-repeat="value in seniorskeys">{{row[value]}} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+
+</div>

@@ -2,7 +2,18 @@
     $('#usersidebar-wrapper').css({left: '250px'});
 </script>
 <div class="">
-    <h3 style="font-weight: 600; margin-top: 10px;">My Tasks</h3>
+    <div class="juniorHeader">
+        <div class="row">
+            <div class="col-sm-12 col-md-9 col-lg-10">
+                <h3 style="font-weight: 600; margin-top: 10px;">My Tasks</h3>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-2">
+                <div style="margin-top: 10px;">
+                    <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">Add Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <hr>
 
     <div class="panel panel-primary filterable" >
@@ -24,4 +35,28 @@
         <h1 ng-show="nodata">NO TASKS</h1>
     </div>
     <br />
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="closeTaskAdd" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Your Task</h4>
+            </div>
+            <form ng-submit="addTask(taskname,taskdescription)">
+                <div class="modal-body">
+                    <input type="text" ng-model="taskname" name="taskname" class="form-control taskinput" placeholder="Task Name" autocomplete="off" required>
+                    <br />
+                    <input type="text" ng-model="taskdescription" name="taskdescription" class="form-control taskinput" placeholder="Task Description" autocomplete="off">
+                    <br />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" style="min-width: 140px;">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

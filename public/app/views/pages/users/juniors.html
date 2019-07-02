@@ -13,11 +13,13 @@
             <thead>
             <tr class="filters">
                 <th ng-repeat="heading in juniorsheander" id="{{heading}}" class="text-center">{{heading}}</th>
+                <th>View</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="row in juniorsData">
                 <td ng-repeat="value in juniorskeys">{{row[value]}} </td>
+                <td><button class="btn btn-primary" ng-click="viewUser(row.userid)">VIEW</button></td>
             </tr>
             </tbody>
         </table>

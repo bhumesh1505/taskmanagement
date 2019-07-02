@@ -38,6 +38,10 @@ angular.module('appRoutes',['ngRoute'])
             templateUrl:'app/views/pages/users/juniors.html',
             controller:'juniorsCtrl'
         })
+        .when('/junior/:userid', {
+            templateUrl:'app/views/pages/users/viewjunior.html',
+            controller:'viewJuniorCtrl'
+        })
 
         .otherwise({ redirectTo: '/home' });
 

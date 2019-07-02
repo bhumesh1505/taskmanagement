@@ -1,1 +1,27 @@
-<h1>seniors</h1>
+<script>
+    $('#usersidebar-wrapper').css({left: '250px'});
+</script>
+<div class="">
+    <h3 style="font-weight: 600; margin-top: 10px;">My Seniors</h3>
+    <hr>
+
+    <div class="panel panel-primary filterable" >
+        <div class="panel-heading" >
+            <h3 class="panel-title">My Seniors</h3>
+        </div>
+        <table class="table"  id="analystTable" ng-show="gotSeniors">
+            <thead>
+            <tr class="filters">
+                <th ng-repeat="heading in seniorsheander" id="{{heading}}" class="text-center">{{heading}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in seniorsData">
+                <td ng-repeat="value in seniorskeys">{{row[value]}} </td>
+            </tr>
+            </tbody>
+        </table>
+        <h1 ng-show="nodata">No seniors</h1>
+    </div>
+    <br />
+</div>

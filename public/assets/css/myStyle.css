@@ -9,3 +9,14 @@
     width: 60%;
     margin-left: 20%;
 }
+.headingPersonalInfo{
+    font-weight: 600;
+    margin-right: 15px;
+}
+.profileContainer{
+    width: 80%;
+    margin-left: 10%;
+}
+.inputComment{
+    display: initial !important;
+}

@@ -34,7 +34,7 @@ angular.module('authServices',[])
         AuthToken.removeToken();
     };
 
-    //Auth.getUserDetailsUsingId()
+    //Auth.getUserDetailsUsingIds()
     userFactory.getUserDetailsUsingIds = function(userid,successcallback,errorcallback){
 
         var data = {
@@ -42,6 +42,23 @@ angular.module('authServices',[])
         };
         return $http({
             url: '/api/users',
+            method: "GET",
+            params:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
+        });
+    };
+
+    //Auth.getUserDetailsUsingId()
+    userFactory.getUserDetailsUsingId = function(userid,successcallback,errorcallback){
+
+        var data = {
+            userid:userid
+        };
+        return $http({
+            url: '/api/user',
             method: "GET",
             params:data
         }).success(function(data){
@@ -112,19 +129,53 @@ angular.module('authServices',[])
     };
 
     userFactory.getComments = function(userid,successcallback,errorcallback){
-            var data = {
-                userid : userid
-            };
-            return $http({
-                url: '/api/comments',
-                method: "GET",
-                params:data
-            }).success(function(data){
-                successcallback(data);
-            }).error(function(data) {
-                errorcallback(data);
-            });
+        var data = {
+            userid : userid
         };
+        return $http({
+            url: '/api/comments',
+            method: "GET",
+            params:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
+        });
+    };
+
+    userFactory.submitComment = function(comment,rating,userid,successcallback,errorcallback){
+        var data = {
+            comment:comment,
+            rating:rating,
+            userid : userid
+        };
+        return $http({
+            url: '/api/comment',
+            method: "POST",
+            data:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
+        });
+    };
+
+    userFactory.addTask = function(taskname,description,userid,successcallback,errorcallback){
+        var data = {
+            name:taskname,
+            description:description,
+            userid : userid
+        };
+        return $http({
+            url: '/api/task',
+            method: "POST",
+            data:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
+        });
+    }
 
     return userFactory;
 })

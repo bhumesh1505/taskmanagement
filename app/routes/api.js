@@ -185,13 +185,11 @@ module.exports = function(router){
             res.json({success:false,msg:'userid not provided'});
         } else {
             var stringIds = params.userid;
-            console.log(stringIds);
             var ids = stringIds.split(',');
-            console.log(ids);
             User.find({userid:{"$in":ids}}).exec(function(err, data){
                 if(err){ throw err; }
                 else {
-                    res.json({data: data});
+                    res.json({success: true,data: data});
                 }
             })
         }
@@ -206,7 +204,7 @@ module.exports = function(router){
             User.findOne({userid:params.userid}).exec(function(err, juniorData){
                 if(err){ throw err; }
                 else {
-                    res.json({juniors: juniorData.juniors});
+                    res.json({success: true, juniors: juniorData.juniors});
                 }
             })
         }
@@ -218,10 +216,10 @@ module.exports = function(router){
         if(!params.userid){
             res.json({success:false,msg:'userid not provided'});
         } else {
-            User.find({userid:params.userid}).exec(function(err, data){
+            User.findOne({userid:params.userid}).exec(function(err, data){
                 if(err){ throw err; }
                 else {
-                    res.json({juniors: data.seniors});
+                    res.json({success: true, seniors: data.seniors});
                 }
             })
         }
