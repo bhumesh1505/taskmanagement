@@ -40,9 +40,11 @@ angular.module('mainController',[])
             $scope.errorMsg = false;
             var successcallback = function(data){
                 $scope.successMsg = data.msg;
-                $timeout(function(){
-                    $location.path('/profile');
-                },500);
+                if(data.success){
+                    $timeout(function(){
+                        $location.path('/profile');
+                    },500);
+                }
             };
             Auth.login(data.username,data.password,successcallback,errorcallback);
 

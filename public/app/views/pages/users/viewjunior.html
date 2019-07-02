@@ -37,11 +37,11 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-primary filterable" >
+    <div class="panel panel-primary filterable"  ng-show="gotTasks" >
         <div class="panel-heading" >
             <h3 class="panel-title">{{userinfo.name | uppercase}}'s Tasks</h3>
         </div>
-        <table class="table"  ng-show="gotTasks">
+        <table class="table" >
             <thead>
             <tr class="filters">
                 <th ng-repeat="heading in tasksheander" class="text-center">{{heading}}</th>
@@ -55,11 +55,11 @@
         </table>
     </div>
     <br />
-    <div class="panel panel-primary filterable" >
+    <div class="panel panel-primary filterable" ng-show="gotComments">
         <div class="panel-heading" >
             <h3 class="panel-title">{{userinfo.name | uppercase}}'s Comments</h3>
         </div>
-        <table class="table" ng-show="gotComments">
+        <table class="table" >
             <thead>
             <tr class="filters">
                 <th ng-repeat="heading in commentsheander" class="text-center">{{heading}}</th>
@@ -74,11 +74,11 @@
     </div>
     <br />
 
-    <div class="panel panel-primary filterable" >
+    <div class="panel panel-primary filterable" ng-show="gotJuniors" >
         <div class="panel-heading" >
             <h3 class="panel-title">{{userinfo.name | uppercase}}'s Juniors</h3>
         </div>
-        <table class="table" ng-show="gotJuniors">
+        <table class="table">
             <thead>
             <tr class="filters">
                 <th ng-repeat="heading in juniorsheander" class="text-center">{{heading}}</th>
@@ -95,11 +95,11 @@
     </div>
     <br />
 
-    <div class="panel panel-primary filterable" >
+    <div class="panel panel-primary filterable" ng-show="gotSeniors">
         <div class="panel-heading" >
             <h3 class="panel-title">{{userinfo.name | uppercase}}'s Seniors</h3>
         </div>
-        <table class="table" ng-show="gotSeniors">
+        <table class="table">
             <thead>
             <tr class="filters">
                 <th ng-repeat="heading in seniorsheander" class="text-center">{{heading}}</th>

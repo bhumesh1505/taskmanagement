@@ -162,7 +162,9 @@ angular.module('userControllers',[])
         $scope.taskskeys = ['name','description','date'];
         var successcallbacktasks = function(data){
             $scope.tasksData = data.tasks;
-            $scope.gotTasks = true;
+            if($scope.tasksData.length > 0){
+                $scope.gotTasks = true;
+            }
         };
         Auth.getTasks($routeParams.userid,successcallbacktasks,errorcallback);
 
@@ -172,7 +174,9 @@ angular.module('userControllers',[])
         $scope.commentskeys = ['comment','date','rating'];
         var successcallbackcomments = function(data){
             $scope.commentsData = data.comments;
-            $scope.gotComments = true;
+            if($scope.commentsData.length > 0) {
+                $scope.gotComments = true;
+            }
         };
         Auth.getComments($routeParams.userid,successcallbackcomments,errorcallback);
 
@@ -194,6 +198,9 @@ angular.module('userControllers',[])
             }
             var successcallbackjuniors = function(data){
                 $scope.juniorsData = data.data;
+                if($scope.juniorsData.length > 0){
+                    $scope.gotJuniors = true;
+                }
                 $scope.gotJuniors = true;
             };
             Auth.getUserDetailsUsingIds(ids,successcallbackjuniors,errorcallback);
@@ -218,7 +225,9 @@ angular.module('userControllers',[])
             }
             var successcallbackseniors = function(userdata){
                 $scope.seniorsData = userdata.data;
-                $scope.gotSeniors = true;
+                if($scope.seniorsData.length > 0){
+                    $scope.gotSeniors = true;
+                }
             };
             Auth.getUserDetailsUsingIds(ids,successcallbackseniors,errorcallback);
         };
@@ -229,7 +238,9 @@ angular.module('userControllers',[])
                 if(data2.success == true) {
                     var successcallbackcomments = function (data) {
                         $scope.commentsData = data.comments;
-                        $scope.gotComments = true;
+                        if($scope.commentsData.length > 0){
+                            $scope.gotComments = true;
+                        }
                         $scope.comment = "";
                         $scope.rating = "";
                     };
