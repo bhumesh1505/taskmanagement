@@ -76,9 +76,9 @@
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right" style="top: 8px; ">
+                <ul class="nav navbar-nav navbar-right" style="top: 8px;">
                     <li>
-                        <div class="dropdown">
+                        <div class="dropdown"  ng-show="isLoggedIn">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
                                     id="dropdownMenu1" aria-haspopup="true" aria-expanded="true">Hello {{ userdetails.name }}
                                 <span class="caret"></span></button>
@@ -112,7 +112,7 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper" class="menu-closed">
             <ul class="sidebar-nav" id="accordion">
-
+                <div ng-show="isLoggedIn">
                 <li class="panel">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -150,7 +150,23 @@
                         </h4>
                     </div>
                 </li>
-
+                </div>
+                <div ng-hide="isLoggedIn">
+                    <li class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="/login"><span class=""><i class="fa fa-user-circle" aria-hidden="true"></i></span>Login</a>
+                            </h4>
+                        </div>
+                    </li>
+                    <li class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="/register"><span class=""><i class="fa fa-users" aria-hidden="true"></i></span>Register</a>
+                            </h4>
+                        </div>
+                    </li>
+                </div>
             </ul>
         </div>
 

@@ -175,7 +175,23 @@ angular.module('authServices',[])
         }).error(function(data) {
             errorcallback(data);
         });
-    }
+    };
+
+    userFactory.isJuniorOf = function(userid,juniorid,successcallback,errorcallback){
+        var data = {
+            juniorid:juniorid,
+            userid : userid
+        };
+        return $http({
+            url: '/api/isjuniorof',
+            method: "GET",
+            params:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
+        });
+    };
 
     return userFactory;
 })

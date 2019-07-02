@@ -7,7 +7,14 @@
 
     <div class="panel panel-primary filterable" >
         <div class="panel-heading" >
-            <h3 class="panel-title">My Comments</h3>
+            <div class="row">
+                <div class="col-md-10">
+                    <h3 class="panel-title">My Comments</h3>
+                </div>
+                <div class="col-md-2 text-center">
+                    <h3 class="panel-title"><i class="fa fa-star" aria-hidden="true"></i> {{averageRating}}</h3>
+                </div>
+            </div>
         </div>
         <table class="table"  id="analystTable" ng-show="gotComments">
             <thead>
