@@ -279,7 +279,7 @@ module.exports = function(router){
     });
 
     router.post('/me' , function(req,res){
-        res.send(req.decoded);
+        res.json({success:true, data: req.decoded});
     });
 
 

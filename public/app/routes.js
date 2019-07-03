@@ -13,7 +13,8 @@ angular.module('appRoutes',['ngRoute'])
             controller:'regCtrl'
         })
         .when('/login', {
-            templateUrl:'app/views/pages/users/login.html'
+            templateUrl:'app/views/pages/users/login.html',
+            controller:'loginCtrl'
         })
         .when('/logout', {
             templateUrl:'app/views/pages/users/logout.html'
