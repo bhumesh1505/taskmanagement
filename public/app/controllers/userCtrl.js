@@ -283,6 +283,7 @@ angular.module('userControllers',[])
             Auth.getSeniorsId($routeParams.userid, successcallbackseniorsids, errorcallback);
 
             $scope.submitComment = function (comment, rating) {
+                alert(rating);
                 var successcallback = function (data2) {
                     if (data2.success == true) {
                         var successcallbackcomments = function (data) {
@@ -296,9 +297,17 @@ angular.module('userControllers',[])
                         Auth.getComments($routeParams.userid, successcallbackcomments, errorcallback);
                     }
                 };
-                Auth.submitComment(comment, rating, $routeParams.userid, successcallback, errorcallback);
+                //Auth.submitComment(comment, rating, $routeParams.userid, successcallback, errorcallback);
             };
-
+            $scope.rangeForRating = function(rating){
+                if(rating <= 0){
+                    $scope.rating = "";
+                }
+                else if(rating > 10){
+                    $scope.rating = 10;
+                    alert("Rate between 1 to 10 only");
+                }
+            };
             $scope.cancomment = false;
             var successcallbackisjuniorof = function (data) {
                 if (data.success && data.found) {
