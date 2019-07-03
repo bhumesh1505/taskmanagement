@@ -66,7 +66,9 @@ angular.module('userControllers',[])
                 for (var i = 0; i < $scope.commentsData.length; i++) {
                     $scope.averageRating += parseFloat($scope.commentsData[i].rating);
                 }
-                $scope.averageRating = $scope.averageRating / $scope.commentsData.length;
+                if($scope.commentsData.length > 0){
+                    $scope.averageRating = $scope.averageRating / $scope.commentsData.length;
+                }
                 $scope.averageRating = $scope.averageRating.toFixed(2);
             }
             $scope.gotComments = true;
@@ -154,7 +156,6 @@ angular.module('userControllers',[])
 
 
         $scope.addSenior = function(seniorid){
-            alert(seniorid);
             var successcallbackmap = function(data){
                 if(data.success){
                     $scope.seniorid = "";
@@ -212,7 +213,9 @@ angular.module('userControllers',[])
                     for (var i = 0; i < $scope.commentsData.length; i++) {
                         $scope.averageRating += parseFloat($scope.commentsData[i].rating);
                     }
-                    $scope.averageRating = $scope.averageRating / $scope.commentsData.length;
+                    if($scope.commentsData.length > 0){
+                        $scope.averageRating = $scope.averageRating / $scope.commentsData.length;
+                    }
                     $scope.averageRating = $scope.averageRating.toFixed(2);
                 }
                 $scope.gotComments = true;
