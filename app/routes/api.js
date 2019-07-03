@@ -144,22 +144,32 @@ module.exports = function(router){
         }
 	});
 	
-	// create user juniors mapping
-	router.post('/junior', function(req,res){
-		var userid = req.body.userid;
+	// mapping between junior and senior
+	router.post('/mapping', function(req,res){
+		var seniorid = req.body.seniorid;
 		var juniorid = req.body.juniorid;
-
-		if(!req.body.userid || !req.body.juniorid){
-			res.json({success:false,msg:'Ensure all information were provided'});
+        if(!req.body.seniorid || !req.body.juniorid){
+			res.json({success:false,msg:'Ensure all both ids were provided'});
 		} else {
-			User.updateOne({userid:userid}, {"$push": {"juniors": juniorid}},{ "upsert": true }).exec(function(err, user) {
-				if(err) throw err;
-				// else res.json({success:true,msg:'junior added!'});
-			})
-			User.findOneAndUpdate({userid:juniorid}, {$push: {seniors: userid}}).exec(function(err, user) {
-				if(err) throw err;
-				else res.json({success:true,msg:'junior added!'});
-			})
+            var ids = [];
+            ids.push(seniorid);
+            ids.push(juniorid);
+            User.find({userid:{"$in":ids}}).exec(function(err, user) {
+                if(err) throw err;
+                else if(user.length == 2){ // if both users are present then only map
+                    User.updateOne({userid:seniorid}, {"$push": {"juniors": juniorid}},{ "upsert": true }).exec(function(err, user) {
+                        if(err) throw err;
+                        else{
+                            User.updateOne({userid:juniorid}, {"$push": {"seniors": seniorid}},{ "upsert": true }).exec(function(err, user) {
+                                if(err) throw err;
+                                else res.json({success:true,msg:'junior added!'});
+                            })
+                        }
+                    })
+                } else {
+                    res.json({success:false,msg:'failed to add junior!'});
+                }
+            });
 		}
 	});
 
@@ -195,7 +205,7 @@ module.exports = function(router){
         }
     });
 
-    // get junior's id
+    // get junior's ids
     router.get('/juniorsid', function(req,res){
         var params = url.parse(req.url, true).query
         if(!params.userid){
@@ -225,6 +235,31 @@ module.exports = function(router){
         }
     });
 
+    // check if given id is junior of given userid
+    router.get('/isjuniorof', function(req,res){
+        var params = url.parse(req.url, true).query
+        if(!params.userid){
+            res.json({success:false,msg:'userid not provided'});
+        } else {
+            var userid = params.userid;
+            var juniorid = params.juniorid;
+
+            User.findOne({userid:userid}).exec(function(err, data){
+                if(err){
+                    throw err;
+                } else {
+                    if(data.juniors.find( function(id){ return id == juniorid }) ){
+                        res.json({success: true,found: true});
+                    }
+                    else{
+                        res.json({success: true,found: false});
+                    }
+
+                }
+            })
+        }
+    });
+
     router.use(function(req,res,next){
         var token = req.body.token || req.body.query || req.headers['x-access-token'];
         if(token){
@@ -246,6 +281,7 @@ module.exports = function(router){
     router.post('/me' , function(req,res){
         res.send(req.decoded);
     });
+
 
     return router;
 }

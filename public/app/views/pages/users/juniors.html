@@ -2,9 +2,17 @@
     $('#usersidebar-wrapper').css({left: '250px'});
 </script>
 <div class="">
-    <h3 style="font-weight: 600; margin-top: 10px;">My Juniors</h3>
+    <div class="">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <h3 style="font-weight: 600; margin-top: 10px;">My Juniors</h3>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <div style="margin-top: 10px;"><input type="text" class="form-control inputBox" ng-model="juniorid" name="juniorid" placeholder="Enter Junior ID" style="width: 150px;margin-right: 5px;" autocomplete="off"><button class="btn btn-primary" ng-click="addJunior(juniorid)">Add Junior</button></div>
+            </div>
+        </div>
+    </div>
     <hr>
-
     <div class="panel panel-primary filterable" >
         <div class="panel-heading" >
             <h3 class="panel-title">My Juniors</h3>
