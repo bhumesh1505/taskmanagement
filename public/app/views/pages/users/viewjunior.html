@@ -8,7 +8,7 @@
                 <h3 style="font-weight: 600; margin-top: 10px;">{{userinfo.name | uppercase}}'s Profile</h3>
             </div>
             <div class="col-sm-12 col-md-4 col-lg-4" ng-show="cancomment">
-                <div style="margin-top: 10px;"><input type="text" ng-model="comment" name="comment" class="form-control inputComment" placeholder="Comment" style="width: 150px;margin-right: 5px" autocomplete="off"><input type="number" class="form-control inputComment" ng-model="rating" max="10" name="rating" placeholder="Rating" style="width: 85px;margin-right: 5px;" autocomplete="off"><button class="btn btn-primary" ng-click="submitComment(comment,rating)">Post</button></div>
+                <div style="margin-top: 10px;"><input type="text" ng-model="comment" name="comment" class="form-control inputBox" placeholder="Comment" style="width: 150px;margin-right: 5px" autocomplete="off"><input type="number" class="form-control inputBox" ng-model="rating" max="10" name="rating" placeholder="Rating" style="width: 85px;margin-right: 5px;" autocomplete="off"><button class="btn btn-primary" ng-click="submitComment(comment,rating)">Post</button></div>
             </div>
         </div>
     </div>

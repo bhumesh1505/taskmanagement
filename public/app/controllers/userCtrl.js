@@ -97,19 +97,30 @@ angular.module('userControllers',[])
                     ids = ids + id ;
                 }
             }
-            var successcallbackjuniors = function(data){
-                $scope.juniorsData = data.data;
-                $scope.gotJuniors = true;
-            };
-            Auth.getUserDetailsUsingIds(ids,successcallbackjuniors,errorcallback);
+            if(ids.length > 0) {
+                var successcallbackjuniors = function (data) {
+                    $scope.juniorsData = data.data;
+                    $scope.gotJuniors = true;
+                };
+                Auth.getUserDetailsUsingIds(ids, successcallbackjuniors, errorcallback);
+            }
         };
 
         Auth.getJuniorsId($scope.userdetails.userid,successcallbackjuniorsids,errorcallback);
 
         $scope.viewUser = function(userid){
             $location.path('/junior/'+userid);
-        }
+        };
 
+        $scope.addJunior = function(juniorid){
+            var successcallbackmap = function(data){
+                if(data.success){
+                    $scope.juniorid = "";
+                    Auth.getJuniorsId($scope.userdetails.userid,successcallbackjuniorsids,errorcallback);
+                }
+            };
+            Auth.mappingJuniorSenior(juniorid,$scope.userdetails.userid,successcallbackmap,errorcallback);
+        };
     })
     .controller('seniorsCtrl', function($scope,$http,$location,$timeout,User,Auth) {
 
@@ -140,6 +151,18 @@ angular.module('userControllers',[])
         };
 
         Auth.getSeniorsId($scope.userdetails.userid,successcallbackseniorsids,errorcallback);
+
+
+        $scope.addSenior = function(seniorid){
+            alert(seniorid);
+            var successcallbackmap = function(data){
+                if(data.success){
+                    $scope.seniorid = "";
+                    Auth.getSeniorsId($scope.userdetails.userid,successcallbackseniorsids,errorcallback);
+                }
+            };
+            Auth.mappingJuniorSenior($scope.userdetails.userid,seniorid,successcallbackmap,errorcallback);
+        };
 
     })
     .controller('viewJuniorCtrl', function($scope,$http,$location,$timeout,User,Auth,$routeParams) {
@@ -197,7 +220,7 @@ angular.module('userControllers',[])
 
             var errorcallback = function(data){
             };
-            Auth.getComments($scope.userdetails.userid,successcallbackcomments,errorcallback);
+            Auth.getComments($routeParams.userid,successcallbackcomments,errorcallback);
 
 
             $scope.gotJuniors = false;

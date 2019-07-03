@@ -193,6 +193,22 @@ angular.module('authServices',[])
         });
     };
 
+    userFactory.mappingJuniorSenior = function(juniorid,seniorid,successcallback,errorcallback){
+        var data = {
+            juniorid:juniorid,
+            seniorid:seniorid
+        };
+        return $http({
+            url: '/api/mapping',
+            method: "POST",
+            data:data
+        }).success(function(data){
+            successcallback(data);
+        }).error(function(data) {
+            errorcallback(data);
+        });
+    };
+
     return userFactory;
 })
 

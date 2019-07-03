@@ -144,22 +144,32 @@ module.exports = function(router){
         }
 	});
 	
-	// create user juniors mapping
-	router.post('/junior', function(req,res){
-		var userid = req.body.userid;
+	// mapping between junior and senior
+	router.post('/mapping', function(req,res){
+		var seniorid = req.body.seniorid;
 		var juniorid = req.body.juniorid;
-
-		if(!req.body.userid || !req.body.juniorid){
-			res.json({success:false,msg:'Ensure all information were provided'});
+        if(!req.body.seniorid || !req.body.juniorid){
+			res.json({success:false,msg:'Ensure all both ids were provided'});
 		} else {
-			User.updateOne({userid:userid}, {"$push": {"juniors": juniorid}},{ "upsert": true }).exec(function(err, user) {
-				if(err) throw err;
-				// else res.json({success:true,msg:'junior added!'});
-			})
-			User.findOneAndUpdate({userid:juniorid}, {$push: {seniors: userid}}).exec(function(err, user) {
-				if(err) throw err;
-				else res.json({success:true,msg:'junior added!'});
-			})
+            var ids = [];
+            ids.push(seniorid);
+            ids.push(juniorid);
+            User.find({userid:{"$in":ids}}).exec(function(err, user) {
+                if(err) throw err;
+                else if(user.length == 2){ // if both users are present then only map
+                    User.updateOne({userid:seniorid}, {"$push": {"juniors": juniorid}},{ "upsert": true }).exec(function(err, user) {
+                        if(err) throw err;
+                        else{
+                            User.updateOne({userid:juniorid}, {"$push": {"seniors": seniorid}},{ "upsert": true }).exec(function(err, user) {
+                                if(err) throw err;
+                                else res.json({success:true,msg:'junior added!'});
+                            })
+                        }
+                    })
+                } else {
+                    res.json({success:false,msg:'failed to add junior!'});
+                }
+            });
 		}
 	});
 
