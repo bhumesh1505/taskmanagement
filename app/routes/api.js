@@ -213,8 +213,11 @@ module.exports = function(router){
         } else {
             User.findOne({userid:params.userid}).exec(function(err, juniorData){
                 if(err){ throw err; }
-                else {
+                else if(juniorData){
                     res.json({success: true, juniors: juniorData.juniors});
+                }
+                else{
+                    res.json({success: false, msg: "failed !"});
                 }
             })
         }
@@ -228,8 +231,11 @@ module.exports = function(router){
         } else {
             User.findOne({userid:params.userid}).exec(function(err, data){
                 if(err){ throw err; }
-                else {
+                else if(data){
                     res.json({success: true, seniors: data.seniors});
+                }
+                else{
+                    res.json({success: false, msg: "Failed !"});
                 }
             })
         }
@@ -251,10 +257,9 @@ module.exports = function(router){
                     if(data.juniors.find( function(id){ return id == juniorid }) ){
                         res.json({success: true,found: true});
                     }
-                    else{
+                    else {
                         res.json({success: true,found: false});
                     }
-
                 }
             })
         }

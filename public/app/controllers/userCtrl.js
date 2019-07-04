@@ -291,7 +291,6 @@ angular.module('userControllers',[])
             };
             Auth.getJuniorsId($routeParams.userid, successcallbackjuniorsids, errorcallback);
 
-
             $scope.gotSeniors = false;
             $scope.seniorsheander = ['Name', 'Userid', 'Email', 'Contact'];
             $scope.seniorskeys = ['name', 'userid', 'email', 'contact'];

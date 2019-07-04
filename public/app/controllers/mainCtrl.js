@@ -21,7 +21,7 @@ angular.module('mainController',[])
                 $scope.notificationSuccessMsg = false;
                 $scope.notificationFailedMsg = false;
             },2000);
-        }
+        };
 
         var errorcallback = function(data){
         };
@@ -82,6 +82,7 @@ angular.module('mainController',[])
 
         $scope.logout = function(){
             Auth.logout();
+            $scope.showNotification("Successfully Logged Out !",true);
             $scope.isLoggedIn = false;
             $location.path('/logout');
             $timeout(function(){
