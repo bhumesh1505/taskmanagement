@@ -23,8 +23,8 @@
     <script src="app/routes.js"></script>
 
     <!-- Angular Controllers -->
-    <script src="app/controllers/userCtrl.js"></script>
     <script src="app/controllers/mainCtrl.js"></script>
+    <script src="app/controllers/userCtrl.js"></script>
     <script src="app/controllers/emailCtrl.js"></script>
 
     <!-- Angular Services -->
@@ -52,7 +52,12 @@
             text-align: center;
             margin-right: 10px;
         }
+
+        .panel {
+            margin-bottom: 0px !important;
+        }
     </style>
+
     <script>
         $(document).ready(function () {
             $(".menu-btn").click(function () {
@@ -64,6 +69,10 @@
 </head>
 <body ng-app="userApp" ng-controller="mainCtrl" ng-cloak="">
     <div class="loader"></div>
+    <div class="notificationContainer">
+        <div class="notificationTab notificationTabSuccess" ng-show="notificationSuccessMsg">{{notificationMsg}}</div>
+        <div class="notificationTab notificationTabFailed" ng-show="notificationFailedMsg">{{notificationMsg}}</div>
+    </div>
     <nav class="navbar navbar-default navbar-fixed-top">
 
         <div class="container" style="margin: 0;width: 100%;">
@@ -100,12 +109,6 @@
 
     </nav>
 
-    <style>
-        .panel {
-            margin-bottom: 0px !important;
-        }
-
-    </style>
     <!-- Sidebar -->
     <div id="wrapper" class="toggled wrapper-closed">
 

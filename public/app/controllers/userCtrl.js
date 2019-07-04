@@ -11,6 +11,7 @@ angular.module('userControllers',[])
                 $scope.successMsg = false;
                 $scope.errorMsg = false;
                 User.create(userData).then(function (data) {
+                    $scope.showNotification(data.data.msg,data.data.success);
                     if (data.data.success) {
                         $scope.successMsg = data.data.msg;
                         $timeout(function () {
@@ -58,6 +59,7 @@ angular.module('userControllers',[])
 
             $scope.addTask = function (name, description) {
                 var successcallbackaddtask = function (data) {
+                    $scope.showNotification(data.msg, data.success);
                     if (data.success) {
                         document.getElementById("closeTaskAdd").click();
                         $scope.taskdescription = "";
@@ -142,6 +144,7 @@ angular.module('userControllers',[])
 
             $scope.addJunior = function (juniorid) {
                 var successcallbackmap = function (data) {
+                    $scope.showNotification(data.msg, data.success);
                     if (data.success) {
                         $scope.juniorid = "";
                         Auth.getJuniorsId($scope.userdetails.userid, successcallbackjuniorsids, errorcallback);
@@ -189,6 +192,7 @@ angular.module('userControllers',[])
 
             $scope.addSenior = function (seniorid) {
                 var successcallbackmap = function (data) {
+                    $scope.showNotification(data.msg, data.success);
                     if (data.success) {
                         $scope.seniorid = "";
                         Auth.getSeniorsId($scope.userdetails.userid, successcallbackseniorsids, errorcallback);
@@ -316,8 +320,8 @@ angular.module('userControllers',[])
             Auth.getSeniorsId($routeParams.userid, successcallbackseniorsids, errorcallback);
 
             $scope.submitComment = function (comment, rating) {
-                alert(rating);
                 var successcallback = function (data2) {
+                    $scope.showNotification(data2.msg, data2.success);
                     if (data2.success == true) {
                         var successcallbackcomments = function (data) {
                             $scope.commentsData = data.comments;
@@ -330,7 +334,7 @@ angular.module('userControllers',[])
                         Auth.getComments($routeParams.userid, successcallbackcomments, errorcallback);
                     }
                 };
-                //Auth.submitComment(comment, rating, $routeParams.userid, successcallback, errorcallback);
+                Auth.submitComment(comment, rating, $routeParams.userid, successcallback, errorcallback);
             };
             $scope.rangeForRating = function(rating){
                 if(rating <= 0){

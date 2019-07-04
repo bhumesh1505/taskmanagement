@@ -162,12 +162,12 @@ module.exports = function(router){
                         else{
                             User.updateOne({userid:juniorid}, {"$push": {"seniors": seniorid}},{ "upsert": true }).exec(function(err, user) {
                                 if(err) throw err;
-                                else res.json({success:true,msg:'junior added!'});
+                                else res.json({success:true,msg:'Junior/Senior added!'});
                             })
                         }
                     })
                 } else {
-                    res.json({success:false,msg:'failed to add junior!'});
+                    res.json({success:false,msg:'failed to add Junior/Senior!'});
                 }
             });
 		}

@@ -28,3 +28,30 @@
     color: #337ab7;
     transition: 0.3s;
 }
+
+.notificationTab{
+    margin: 0 auto;
+    padding: 5px 10px;
+    width: 350px;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 2px 7px 6px #aaaaaa;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.notificationTabSuccess{
+    background: green;
+}
+
+.notificationTabFailed{
+    background: red;
+}
+.notificationContainer{
+    position: fixed;
+    top: 0;
+    z-index: 1031;
+    left: 0;
+    right: 0;
+}

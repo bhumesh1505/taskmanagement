@@ -4,6 +4,24 @@ angular.module('mainController',[])
         $scope.userdetails = {};
         $scope.isLoggedIn = false;
         $scope.pageLoaded = false;
+        $scope.notificationSuccessMsg = false;
+        $scope.notificationFailedMsg = false;
+        $scope.notificationMsg = "Notification MSG";
+
+        $scope.showNotification = function(msg,success){
+            $scope.notificationMsg = msg;
+            if(success){
+                $scope.notificationSuccessMsg = true;
+                $scope.notificationFailedMsg = false;
+            } else {
+                $scope.notificationSuccessMsg = false;
+                $scope.notificationFailedMsg = true;
+            }
+            $timeout(function(){
+                $scope.notificationSuccessMsg = false;
+                $scope.notificationFailedMsg = false;
+            },2000);
+        }
 
         var errorcallback = function(data){
         };
@@ -16,6 +34,8 @@ angular.module('mainController',[])
             if(Auth.isLoggedIn()){ // if token is set doesn't mean that it is a valid token which contains user details encrypted inside
                 $scope.isLoggedIn = true;
                 $scope.pageLoaded = true;
+
+                fadeout();
                 var successcallback = function(data){
                     if(data.success) { // token is set and it is valid
                         $scope.userdetails.username = data.data.username;
@@ -49,6 +69,7 @@ angular.module('mainController',[])
             $scope.successMsg = false;
             $scope.errorMsg = false;
             var successcallback = function(data){
+                $scope.showNotification(data.msg,data.success);
                 $scope.successMsg = data.msg;
                 if(data.success){
                     $timeout(function(){
