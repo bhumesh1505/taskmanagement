@@ -23,8 +23,8 @@
     <script src="app/routes.js"></script>
 
     <!-- Angular Controllers -->
-    <script src="app/controllers/userCtrl.js"></script>
     <script src="app/controllers/mainCtrl.js"></script>
+    <script src="app/controllers/userCtrl.js"></script>
     <script src="app/controllers/emailCtrl.js"></script>
 
     <!-- Angular Services -->
@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/loader.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>MEAN Stack App</title>
+    <title>Task Management</title>
 
     <style>
         .webStatus{
@@ -52,7 +52,12 @@
             text-align: center;
             margin-right: 10px;
         }
+
+        .panel {
+            margin-bottom: 0px !important;
+        }
     </style>
+
     <script>
         $(document).ready(function () {
             $(".menu-btn").click(function () {
@@ -64,6 +69,10 @@
 </head>
 <body ng-app="userApp" ng-controller="mainCtrl" ng-cloak="">
     <div class="loader"></div>
+    <div class="notificationContainer">
+        <div class="notificationTab notificationTabSuccess" ng-show="notificationSuccessMsg">{{notificationMsg}}</div>
+        <div class="notificationTab notificationTabFailed" ng-show="notificationFailedMsg">{{notificationMsg}}</div>
+    </div>
     <nav class="navbar navbar-default navbar-fixed-top">
 
         <div class="container" style="margin: 0;width: 100%;">
@@ -100,12 +109,6 @@
 
     </nav>
 
-    <style>
-        .panel {
-            margin-bottom: 0px !important;
-        }
-
-    </style>
     <!-- Sidebar -->
     <div id="wrapper" class="toggled wrapper-closed">
 
@@ -113,14 +116,14 @@
         <div id="sidebar-wrapper" class="menu-closed">
             <ul class="sidebar-nav" id="accordion">
                 <div ng-show="isLoggedIn">
-                <li class="panel">
+                <li class="panel navList">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a href="/profile"><span class=""><i class="fa fa-user-circle"></i></span>My Profile</a>
                         </h4>
                     </div>
                 </li>
-                <li class="panel">
+                <li class="panel navList">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a href="/tasks"><span class=""><i class="fa fa-list"></i></span>
@@ -128,7 +131,7 @@
                         </h4>
                     </div>
                 </li>
-                <li class="panel">
+                <li class="panel navList">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a href="/comments"><span class=""><i class="fa fa-commenting-o"></i></span>
@@ -136,14 +139,14 @@
                         </h4>
                     </div>
                 </li>
-                <li class="panel">
+                <li class="panel navList">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a href="/juniors"><span class=""><i class="fa fa-users" aria-hidden="true"></i></span>My Juniors</a>
                         </h4>
                     </div>
                 </li>
-                <li class="panel">
+                <li class="panel navList">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a href="/seniors"><span class=""><i class="fa fa-users" aria-hidden="true"></i></span>My Seniors</a>
@@ -152,14 +155,14 @@
                 </li>
                 </div>
                 <div ng-hide="isLoggedIn">
-                    <li class="panel">
+                    <li class="panel navList">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a href="/login"><span class=""><i class="fa fa-user-circle" aria-hidden="true"></i></span>Login</a>
                             </h4>
                         </div>
                     </li>
-                    <li class="panel">
+                    <li class="panel navList">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a href="/register"><span class=""><i class="fa fa-users" aria-hidden="true"></i></span>Register</a>

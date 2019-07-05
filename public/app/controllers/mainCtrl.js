@@ -4,6 +4,24 @@ angular.module('mainController',[])
         $scope.userdetails = {};
         $scope.isLoggedIn = false;
         $scope.pageLoaded = false;
+        $scope.notificationSuccessMsg = false;
+        $scope.notificationFailedMsg = false;
+        $scope.notificationMsg = "Notification MSG";
+
+        $scope.showNotification = function(msg,success){
+            $scope.notificationMsg = msg;
+            if(success){
+                $scope.notificationSuccessMsg = true;
+                $scope.notificationFailedMsg = false;
+            } else {
+                $scope.notificationSuccessMsg = false;
+                $scope.notificationFailedMsg = true;
+            }
+            $timeout(function(){
+                $scope.notificationSuccessMsg = false;
+                $scope.notificationFailedMsg = false;
+            },2000);
+        };
 
         var errorcallback = function(data){
         };
@@ -13,20 +31,32 @@ angular.module('mainController',[])
             $scope.successMsg = false;
             $scope.errorMsg = false;
 
-            if(Auth.isLoggedIn()){
+            if(Auth.isLoggedIn()){ // if token is set doesn't mean that it is a valid token which contains user details encrypted inside
                 $scope.isLoggedIn = true;
                 $scope.pageLoaded = true;
-                var successcallback = function(data){
-                    $scope.userdetails.username = data.username;
-                    $scope.userdetails.userid = data.userid;
-                    $scope.userdetails.email = data.email;
-                    $scope.userdetails.name = data.name;
-                    $scope.userdetails.gender = data.gender;
-                    $scope.userdetails.contact = data.contact;
 
-                    $scope.isLoggedIn = true;
-                    $scope.pageLoaded = true;
-                    fadeout();
+                fadeout();
+                var successcallback = function(data){
+                    if(data.success) { // token is set and it is valid
+                        $scope.userdetails.username = data.data.username;
+                        $scope.userdetails.userid = data.data.userid;
+                        $scope.userdetails.email = data.data.email;
+                        $scope.userdetails.name = data.data.name;
+                        $scope.userdetails.gender = data.data.gender;
+                        $scope.userdetails.contact = data.data.contact;
+                        $scope.isLoggedIn = true;
+                        fadeout();
+                    }
+                    else {  // token is set but it is invalid
+                        $scope.userdetails.username = "";
+                        $scope.userdetails.userid = "";
+                        $scope.userdetails.email = "";
+                        $scope.userdetails.name = "";
+                        $scope.userdetails.gender = "";
+                        $scope.userdetails.contact = "";
+                        $scope.isLoggedIn = false;
+                        $location.path('/login');
+                    }
                 };
                 Auth.getUserFromToken(successcallback,errorcallback);
             }
@@ -39,6 +69,7 @@ angular.module('mainController',[])
             $scope.successMsg = false;
             $scope.errorMsg = false;
             var successcallback = function(data){
+                $scope.showNotification(data.msg,data.success);
                 $scope.successMsg = data.msg;
                 if(data.success){
                     $timeout(function(){
@@ -47,11 +78,11 @@ angular.module('mainController',[])
                 }
             };
             Auth.login(data.username,data.password,successcallback,errorcallback);
-
         };
 
         $scope.logout = function(){
             Auth.logout();
+            $scope.showNotification("Successfully Logged Out !",true);
             $scope.isLoggedIn = false;
             $location.path('/logout');
             $timeout(function(){
