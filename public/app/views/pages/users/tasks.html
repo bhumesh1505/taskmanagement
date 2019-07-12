@@ -4,59 +4,52 @@
 <div class="">
     <div class="juniorHeader">
         <div class="row">
-            <div class="col-sm-12 col-md-9 col-lg-10">
+            <div class="col-sm-12 col-md-6 col-lg-6">
                 <h3 style="font-weight: 600; margin-top: 10px;">My Tasks</h3>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2">
+            <div class="col-sm-12 col-md-6 col-lg-6">
                 <div style="margin-top: 10px;">
-                    <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">Add Task</button>
+                    <div style="margin-top: 10px;">
+                        <input type="text" ng-model="taskname" name="taskname" class="form-control inputBox" placeholder="Enter Task" style="width: 70%;max-width:300px;margin-right: 5px" autocomplete="off">
+                        <!--<input type="text" class="form-control inputBox" ng-model="taskdescription" name="taskdescription" placeholder="taskdescription" style="width: 85px;margin-right: 5px;" autocomplete="off">-->
+                        <button class="btn btn-primary" ng-click="addTask(taskname,'')">Add Task</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <hr>
-
-    <div class="panel panel-primary filterable" >
-        <div class="panel-heading" >
-            <h3 class="panel-title">My Tasks</h3>
+    <div class="timeline">
+        <div  ng-repeat="taskDayWise in tasksData" class="containerTimeline {{taskDayWise.containerSideClassName}}">
+            <div class="contentTimeline">
+                <div class="taskDay">{{taskDayWise.date.day}} {{month[taskDayWise.date.month]}} {{taskDayWise.date.year}}</div>
+                <table style="width: 100%;" id="analystTable">
+                    <thead>
+                    <tr class="filters">
+                        <th class="text-center"></th>
+                        <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in taskDayWise.tasks">
+                            <td class="text-left taskName">
+                                <span style="font-size: 10px;padding: 5px;">
+                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                </span>
+                                <span> {{row['name'] | uppercase}}</span>
+                            </td>
+                            <td class="text-right" style="padding: 0px !important;">
+                                <button class="isCompletedButton" ng-click="istaskcompletedToggle(row['_id'],row['iscompleted'], taskDayWise.date)">
+                                    <i class="fa fa-check-square-o isCompletedButtonCheck" ng-show="row['iscompleted']" aria-hidden="true"></i>
+                                    <i class="fa fa-window-close-o isCompletedButtonCross" ng-hide="row['iscompleted']" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <table class="table"  id="analystTable" ng-show="gotTasks">
-            <thead>
-            <tr class="filters">
-                <th ng-repeat="heading in tasksheander" id="{{heading}}" class="text-center">{{heading}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in tasksData">
-                <td ng-repeat="value in taskskeys">{{row[value]}} </td>
-            </tr>
-            </tbody>
-        </table>
-        <h1 ng-show="nodata">NO TASKS</h1>
     </div>
     <br />
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" id="closeTaskAdd" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Your Task</h4>
-            </div>
-            <form ng-submit="addTask(taskname,taskdescription)">
-                <div class="modal-body">
-                    <input type="text" ng-model="taskname" name="taskname" class="form-control taskinput" placeholder="Task Name" autocomplete="off" required>
-                    <br />
-                    <input type="text" ng-model="taskdescription" name="taskdescription" class="form-control taskinput" placeholder="Task Description" autocomplete="off">
-                    <br />
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit" style="min-width: 140px;">Add</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

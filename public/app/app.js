@@ -2,10 +2,10 @@ var app = angular.module('userApp',
     [
         'appRoutes',
         'userControllers',
-        'userServices',
         'ngAnimate',
         'mainController',
-        'authServices'
+        'authServices',
+        'adminController'
     ])
 
     .config(function($httpProvider){

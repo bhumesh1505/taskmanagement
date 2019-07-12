@@ -12,7 +12,8 @@ var UserSchema = new Schema({
 	gender:{type:String,required:true,lowercase: true },
 	type:{type:String,lowercase:true,required:true},
 	juniors:{type:[String]},
-	seniors:{type:[String]}
+	seniors:{type:[String]},
+	isactive:{type:Boolean, default: true}
 });
 
 UserSchema.pre('save', function(next){

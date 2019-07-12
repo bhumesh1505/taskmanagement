@@ -1,0 +1,91 @@
+<style>
+    ul{
+        list-style-type: none;
+        margin-top: 10px;
+    }
+    li{
+        margin-bottom:10px;
+    }
+    .addButton{
+        font-size: 25px;
+        padding: 0px;
+        background: transparent;
+        border: none;
+    }
+    .addButton>.fa-plus-square-o{
+        color: green;
+    }
+    .addButton>.fa-window-close-o{
+        color: red;
+    }
+    .slowTransition{
+        transition: 0.5s ease;
+    }
+</style>
+<br>
+<br>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Library</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Data</li>
+    </ol>
+</nav>
+
+<h1>Departments : </h1>
+<button class="btn btn-primary" ng-click="toggleAddDepartmentInput()">Add Department</button>
+<div class="inputContainer" ng-show="showAddDepartment">
+    <input type="text" ng-model="departmentname" name="departmentname" placeholder="Department Name">
+    <input type="text" ng-model="groupname" name="groupname" placeholder="Group Name">
+    <input type="text" ng-model="subgroupname" name="subgroupname" placeholder="Subgroup Name">
+    <input type="text" ng-model="activityname" name="activityname" placeholder="Activity Name">
+    <button class="addButton" ng-click="createActivity(departmentname,groupname,subgroupname,activityname)">
+        <i class="fa fa-plus-square-o"aria-hidden="true"></i>
+    </button>
+</div>
+<br>
+<ul>
+    <li ng-repeat="department in departmentsData">
+        <button class="btn btn-default" ng-click="toggleElement(department._id)">
+                <i class="fa fa-caret-right" ng-hide="showElement[department._id]" aria-hidden="true"></i>
+                <i class="fa fa-caret-down" ng-show="showElement[department._id]" aria-hidden="true"></i>
+                {{department.departmentname}}
+        </button>
+        <button class="addButton" ng-click="toggleElement(department._id + 'inputOption')">
+            <i class="fa fa-plus-square-o" ng-hide="showElement[department._id+'inputOption']" aria-hidden="true"></i>
+            <i class="fa fa-window-close-o" ng-show="showElement[department._id+'inputOption']" aria-hidden="true"></i>
+        </button>
+        <div class="inputContainer" ng-show="showElement[department._id+'inputOption']">
+            <input value="{{department.departmentname}}" readonly type="text" ng-model="departmentname" name="departmentname" placeholder="{{department.departmentname}}">
+            <input type="text" ng-model="groupname" name="groupname" placeholder="Group Name">
+            <input type="text" ng-model="subgroupname" name="subgroupname" placeholder="Subgroup Name">
+            <input type="text" ng-model="activityname" name="activityname" placeholder="Activity Name">
+            <button class="addButton" ng-click="createActivity(departmentname,groupname,subgroupname,activityname)">
+                <i class="fa fa-plus-square-o"aria-hidden="true"></i>
+            </button>
+        </div>
+        <ul ng-show="showElement[department._id]">
+            <li ng-repeat="group in department.groups">
+                <button class="btn btn-default" ng-click="toggleElement(group._id)">
+                    <i class="fa fa-caret-right" ng-hide="showElement[group._id]" aria-hidden="true"></i>
+                    <i class="fa fa-caret-down" ng-show="showElement[group._id]" aria-hidden="true"></i>
+                    {{group.groupname}}
+                </button>
+                <ul ng-show="showElement[group._id]">
+                    <li ng-repeat="subgroup in group.subgroups">
+                        <button class="btn btn-default" ng-click="toggleElement(subgroup._id)">
+                            <i class="fa fa-caret-right" ng-hide="showElement[subgroup._id]" aria-hidden="true"></i>
+                            <i class="fa fa-caret-down" ng-show="showElement[subgroup._id]" aria-hidden="true"></i>
+                            {{subgroup.subgroupname}}
+                        </button>
+                        <ul ng-show="showElement[subgroup._id]">
+                            <li ng-repeat="activity in subgroup.activities">
+                                <h5>{{activity.activityname}}</h5>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>

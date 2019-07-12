@@ -1,61 +1,52 @@
-<!-- Heading -->
-<div class="row text-center">
-    <div class="container">
-        <h2 class="section-heading">User Registration</h2>
-        <h3 class="section-subheading text-muted">Please enter your registration information.</h3>
+
+<div class="">
+    <div class="containerRegister">
+        <div class="">
+            <div class="text-center">
+                <h3>User Registration</h3>
+            </div>
+        </div>
+        <div class="">
+            <form ng-submit="regUser(data)">
+
+                <label for="name">Name:</label>
+                <input class="form-control manualwidth display_initial" id="name" type="text" name="name" placeholder="please enter name" ng-model="data.name" autocomplete="false">
+                <br>
+
+                <label>Email:</label>
+                <input class="form-control manualwidth display_initial" type="email" name="email" placeholder="please enter email" ng-model="data.email" autocomplete="false">
+                <br>
+
+                <label>Username:</label>
+                <input class="form-control manualwidth display_initial" type="text" name="username" placeholder="please enter username" ng-model="data.username" autocomplete="false">
+                <br>
+
+                <label>Password:</label>
+                <input class="form-control manualwidth display_initial" type="password" name="password" placeholder="please enter password" ng-model="data.password" autocomplete="false">
+                <br>
+
+                <label>User ID:</label>
+                <input class="form-control manualwidth display_initial" type="text" name="userid" placeholder="please enter user id" ng-model="data.userid" autocomplete="false">
+                <br>
+
+                <label>Contact:</label>
+                <input class="form-control manualwidth display_initial" type="number" maxlength="10" name="contact" placeholder="please enter contact" ng-model="data.contact" autocomplete="false">
+                <br>
+
+                <label>Gender:</label>
+                <select ng-model="data.gender" class="form-control manualwidth display_initial" >
+                    <option value="male" selected="true">male</option>
+                    <option value="female">female</option>
+                </select>
+                <br />
+                <br />
+                <div style="margin: 0 auto;width: 100px;">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-<!-- Heading -->
-<div class="formContainer">
-    <form ng-submit="regUser(data)">
-
-        <label>Name:</label>
-        <input class="form-control" type="text" name="name" placeholder="please enter name" ng-model="data.name" autocomplete="false">
-        <br>
-
-        <label>Email:</label>
-        <input class="form-control" type="email" name="email" placeholder="please enter email" ng-model="data.email" autocomplete="false">
-        <br>
-
-        <label>Username:</label>
-        <input class="form-control" type="text" name="username" placeholder="please enter username" ng-model="data.username" autocomplete="false">
-        <br>
-
-        <label>Password:</label>
-        <input class="form-control" type="password" name="password" placeholder="please enter password" ng-model="data.password" autocomplete="false">
-        <br>
-
-        <label>User ID:</label>
-        <input class="form-control" type="text" name="userid" placeholder="please enter user id" ng-model="data.userid" autocomplete="false">
-        <br>
-
-        <label>Contact:</label>
-        <input class="form-control" type="number" maxlength="10" name="contact" placeholder="please enter contact" ng-model="data.contact" autocomplete="false">
-        <br>
-
-        <label>Gender:</label>
-        <select ng-model="data.gender">
-            <option value="male" selected="true">male</option>
-            <option value="female">female</option>
-        </select>
-        <br>
-        <br>
-        <button class="btn btn-primary" type="submit">Register</button>
-    </form>
-</div>
-<!-- Loading Icon (Bootstrap) -->
-<div class="jumbotron text-center" ng-show="loading">
-    <span class="glyphicon glyphicon-repeat spinner"></span>
-    <p>Loading....</p>
-</div>
-<br>
-<br>
-
-<!-- Custom Messages -->
-<div class="row show-hide-message" ng-show="successMsg">
-    <div class="alert alert-success">{{successMsg}}</div>
-</div>
-<!-- Custom Messages -->
-<div class="row show-hide-message" ng-show="errorMsg">
-    <div class="alert alert-danger">{{errorMsg}}</div>
-</div>
+<br />
+<br />
+<br />
