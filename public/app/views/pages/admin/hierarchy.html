@@ -1,0 +1,23 @@
+<style>
+    table{
+        display: contents;
+    }
+    .hierarchieContainer{
+
+    }
+    .containerMap{
+        margin: 0 auto;
+        margin: 20px 20px;
+
+    }
+</style>
+<div class="hierarchieContainer">
+    <div class="containerMap" ng-show="isAdmin">
+        <input type="text" class="form-control inputBox" ng-model="parentId" name="parentId" placeholder="Enter Parent/Senior ID" style="max-width: 200px; margin-right: 5px;margin-bottom: 5px;" autocomplete="off">
+        <input type="text" class="form-control inputBox" ng-model="chieldId" name="chieldId" placeholder="Enter Chield/Junior ID" style="max-width: 200px; margin-right: 5px;margin-bottom: 5px;" autocomplete="off">
+        <button class="btn btn-primary" ng-click="addJuniorSenior(chieldId,parentId)">Add</button>
+        <button class="btn btn-primary" ng-click="removeJuniorSenior(chieldId,parentId)">Remove</button>
+    </div>
+    <br />
+    <div id="chart_div"></div>
+</div>

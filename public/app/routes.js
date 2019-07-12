@@ -2,49 +2,67 @@ angular.module('appRoutes',['ngRoute'])
 .config(function($routeProvider,$locationProvider){
     $routeProvider
 
-        .when('/home', {
-            templateUrl:'app/views/pages/home.html'
+        .when('/taskmanager/home', {
+            templateUrl:'/taskmanager/public/app/views/pages/home.html'
         })
-        .when('/about', {
-            templateUrl:'app/views/pages/about.html'
+        .when('/taskmanager/about', {
+            templateUrl:'/taskmanager/public/app/views/pages/about.html'
         })
-        .when('/register', {
-            templateUrl:'app/views/pages/users/register.html',
+        .when('/taskmanager/register', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/register.html',
             controller:'regCtrl'
         })
-        .when('/login', {
-            templateUrl:'app/views/pages/users/login.html',
+        .when('/taskmanager/login', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/login.html',
             controller:'loginCtrl'
         })
-        .when('/logout', {
-            templateUrl:'app/views/pages/users/logout.html'
+        .when('/taskmanager/logout', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/logout.html'
         })
-        .when('/profile', {
-            templateUrl:'app/views/pages/users/profile.html',
+        .when('/taskmanager/profile', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/profile.html',
             controller:'profileCtrl'
         })
-        .when('/tasks', {
-            templateUrl:'app/views/pages/users/tasks.html',
+        .when('/taskmanager/tasks', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/tasks.html',
             controller:'tasksCtrl'
         })
-        .when('/comments', {
-            templateUrl:'app/views/pages/users/comments.html',
+        .when('/taskmanager/comments', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/comments.html',
             controller:'commentsCtrl'
         })
-        .when('/seniors', {
-            templateUrl:'app/views/pages/users/seniors.html',
+        .when('/taskmanager/seniors', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/seniors.html',
             controller:'seniorsCtrl'
         })
-        .when('/juniors', {
-            templateUrl:'app/views/pages/users/juniors.html',
+        .when('/taskmanager/juniors', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/juniors.html',
             controller:'juniorsCtrl'
         })
-        .when('/junior/:userid', {
-            templateUrl:'app/views/pages/users/viewjunior.html',
+        .when('/taskmanager/junior/:userid', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/viewjunior.html',
             controller:'viewJuniorCtrl'
         })
-
-        .otherwise({ redirectTo: '/home' });
+        .when('/taskmanager/junior/profile/:userid', {
+            templateUrl:'/taskmanager/public/app/views/pages/users/viewjuniorprofile.html',
+            controller:'viewJuniorCtrl'
+        })
+        .when('/taskmanager/admin', {
+            templateUrl:'/taskmanager/public/app/views/pages/admin/assigntasks.html'
+        })
+        .when('/taskmanager/hierarchy', {
+            templateUrl:'/taskmanager/public/app/views/pages/admin/hierarchy.html',
+            controller:'hierarchyCtrl'
+        })
+        .when('/taskmanager/employees', {
+            templateUrl:'/taskmanager/public/app/views/pages/admin/employees.html',
+            controller:'employeesCtrl'
+        })
+        .when('/taskmanager/departments', {
+            templateUrl:'/taskmanager/public/app/views/pages/admin/departments.html',
+            controller:'departmentCtrl'
+        })
+        .otherwise({ redirectTo: '/taskmanager/login' });
 
     // to remove # from url of angular
     $locationProvider.html5Mode({

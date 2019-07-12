@@ -4,124 +4,172 @@
 <div class="">
     <div class="juniorHeader">
         <div class="row">
-            <div class="col-sm-12 col-md-8 col-lg-8">
+            <div class="col-sm-12 col-md-6 col-lg-6">
                 <h3 style="font-weight: 600; margin-top: 10px;">{{userinfo.name | uppercase}}'s Profile</h3>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-4" ng-show="cancomment">
-                <div style="margin-top: 10px;"><input type="text" ng-model="comment" name="comment" class="form-control inputBox" placeholder="Comment" style="width: 150px;margin-right: 5px" autocomplete="off"><input type="number" class="form-control inputBox" ng-model="rating" name="rating" placeholder="Rating" style="width: 85px;margin-right: 5px;" autocomplete="off" ng-keyup="rangeForRating(rating)"><button class="btn btn-primary" ng-click="submitComment(comment,rating)">Post</button></div>
+            <div class="col-sm-12 col-md-6 col-lg-6" ng-show="isjunior">
+                <div style="margin-top: 10px;" ng-show="tab['tasks']">
+                    <input type="text" ng-model="taskname" name="taskname" class="form-control inputBox" placeholder="Enter Task" style="width: 70%;max-width:300px;margin-right: 5px" autocomplete="off">
+                    <!--<input type="text" class="form-control inputBox" ng-model="taskdescription" name="taskdescription" placeholder="taskdescription" style="width: 85px;margin-right: 5px;" autocomplete="off">-->
+                    <button class="btn btn-primary" ng-click="addTask(taskname,'')">Add Task</button>
+                </div>
+                <div style="margin-top: 10px;" ng-show="tab['comments']">
+                    <input type="text" ng-model="comment" name="comment" class="form-control inputBox" placeholder="Comment" style="max-width: 250px;width: 50%; margin-right: 5px" autocomplete="off">
+                    <input type="number" class="form-control inputBox" ng-model="rating" name="rating" placeholder="Rating" style="width: 85px;margin-right: 5px;" autocomplete="off" ng-keyup="rangeForRating(rating)">
+                    <button class="btn btn-primary" ng-click="submitComment(comment,rating)">Post</button>
+                </div>
             </div>
         </div>
     </div>
     <hr>
-    <div class="panel panel-primary filterable" >
-        <div class="panel-heading" >
-            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Information</h3>
-        </div>
-        <div class="">
-            <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-3">
-                    <div class="profileImageLogo"><i class="fa fa-user-circle"></i></div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" ng-click="showTab('tasks')" aria-expanded="true"> Tasks </a></li>
+        <li><a data-toggle="tab" ng-click="showTab('comments')" aria-expanded="true"> Comments </a></li>
+        <li><a data-toggle="tab" ng-click="showTab('profile')" aria-expanded="true"> Profile </a></li>
+        <li><a data-toggle="tab" ng-click="showTab('juniors')" aria-expanded="true"> Juniors </a></li>
+        <li><a data-toggle="tab" ng-click="showTab('seniors')" aria-expanded="true"> Seniors </a></li>
+    </ul>
+    <div class="tab-content onscreen">
+        <div ng-show="tab['tasks']">
+            <div  ng-show="gotTasks" >
+                <br />
+                <br />
+                <div class="timeline">
+                    <div  ng-repeat="taskDayWise in tasksData" class="containerTimeline {{taskDayWise.containerSideClassName}}">
+                        <div class="contentTimeline">
+                            <div class="taskDay">{{taskDayWise.date.day}} {{month[taskDayWise.date.month]}} {{taskDayWise.date.year}}</div>
+                            <table style="width: 100%;">
+                                <thead>
+                                <tr class="filters">
+                                    <th class="text-center"></th>
+                                    <th class="text-center"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="row in taskDayWise.tasks">
+                                    <td class="text-left taskName">
+                                        <span style="font-size: 10px;padding: 5px;">
+                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                        </span>
+                                        <span> {{row['name'] | uppercase}}</span>
+                                    </td>
+                                    <td class="text-right" style="padding: 0px !important;">
+                                        <button class="isCompletedButton">
+                                            <i class="fa fa-check-square-o isCompletedButtonCheck" ng-show="row['iscompleted']" aria-hidden="true"></i>
+                                            <i class="fa fa-window-close-o isCompletedButtonCross" ng-hide="row['iscompleted']" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-8 col-lg-9" style="padding: 45px 0px 45px 30px;">
-                    <div>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Name : </span><span>{{userinfo.name}}</span></div>
-                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Username :</span><span>{{userinfo.username}}</span></div>
-                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Userid :</span><span>{{userinfo.userid}}</span></div>
-                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Email :</span><span>{{userinfo.email}}</span></div>
-                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Contact :</span><span>{{userinfo.contact}}</span></div>
-                            <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Gender :</span><span>{{userinfo.gender}}</span></div>
+                <br />
+            </div>
+
+            <h3 ng-hide="gotTasks">No Tasks</h3>
+        </div>
+        <div ng-show="tab['profile']">
+            <div class="panel panel-primary filterable" >
+                <div class="panel-heading" >
+                    <h3 class="panel-title">{{userinfo.name | uppercase}}'s Information</h3>
+                </div>
+                <div class="">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4 col-lg-3">
+                            <div class="profileImageLogo"><i class="fa fa-user-circle"></i></div>
+                        </div>
+                        <div class="col-sm-12 col-md-8 col-lg-9" style="padding: 45px 0px 45px 30px;">
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Name : </span><span>{{userinfo.name}}</span></div>
+                                    <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Username :</span><span>{{userinfo.username}}</span></div>
+                                    <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Userid :</span><span>{{userinfo.userid}}</span></div>
+                                    <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Email :</span><span>{{userinfo.email}}</span></div>
+                                    <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Contact :</span><span>{{userinfo.contact}}</span></div>
+                                    <div class="col-sm-6 col-md-4 col-lg-4"><span class="headingPersonalInfo">Gender :</span><span>{{userinfo.gender}}</span></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="panel panel-primary filterable"  ng-show="gotTasks" >
-        <div class="panel-heading" >
-            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Tasks</h3>
-        </div>
-        <table class="table" >
-            <thead>
-            <tr class="filters">
-                <th ng-repeat="heading in tasksheander" class="text-center">{{heading}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in tasksData">
-                <td ng-repeat="value in taskskeys">{{row[value]}} </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <br />
-
-    <div class="panel panel-primary filterable" >
-        <div class="panel-heading" >
-            <div class="row">
-                <div class="col-md-10">
-                    <h3 class="panel-title">My Comments</h3>
-                </div>
-                <div class="col-md-2 text-center">
-                    <h3 class="panel-title"><i class="fa fa-star" aria-hidden="true"></i> {{averageRating}}</h3>
+        <div ng-show="tab['comments']">
+            <div ng-show="gotComments">
+                <div ng-repeat="monthwise in commentsData" class="panel panel-primary filterable" >
+                    <div class="panel-heading" >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="width: fit-content;float: left;">
+                                    <h3 class="panel-title">{{month[monthwise.date.month]}} {{monthwise.date.year}}</h3>
+                                </div>
+                                <div class="text-center" style="width: fit-content;float: right;min-width: 100px;">
+                                    <h3 class="panel-title"><i class="fa fa-star" aria-hidden="true"></i> {{monthwise.rating}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table"  id="analystTable">
+                        <thead>
+                        <tr class="filters">
+                            <th>Comments</th>
+                            <th style="width: 15%; min-width: 100px;">Date</th>
+                            <th style="width: 15%; min-width: fit-content;">Rating</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in monthwise.comments">
+                            <td>{{row.comment}}</td>
+                            <td>{{row.date.day}} {{month[row.date.month]}} {{row.date.year}}</td>
+                            <td>{{row.rating}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <h3 ng-hide="gotComments">No Comments</h3>
         </div>
-        <table class="table"  id="analystTable" ng-show="gotComments">
-            <thead>
-            <tr class="filters">
-                <th ng-repeat="heading in commentsheander" id="{{heading}}" class="text-center">{{heading}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in commentsData">
-                <td ng-repeat="value in commentskeys">{{row[value]}} </td>
-            </tr>
-            </tbody>
-        </table>
-        <h1 ng-show="nodata">NO Comments</h1>
-    </div>
-
-    <br />
-
-    <div class="panel panel-primary filterable" ng-show="gotJuniors" >
-        <div class="panel-heading" >
-            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Juniors</h3>
+        <div ng-show="tab['juniors']">
+            <div class="panel panel-primary filterable" ng-show="gotJuniors" >
+                <div class="panel-heading" >
+                    <h3 class="panel-title">{{userinfo.name | uppercase}}'s Juniors</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr class="filters">
+                        <th ng-repeat="heading in juniorsheander" class="text-center">{{heading}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in juniorsData">
+                        <td ng-repeat="value in juniorskeys">{{row[value]}} </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 ng-hide="gotJuniors">No Juniors</h3>
         </div>
-        <table class="table">
-            <thead>
-            <tr class="filters">
-                <th ng-repeat="heading in juniorsheander" class="text-center">{{heading}}</th>
-                <!--<th>View</th>-->
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in juniorsData">
-                <td ng-repeat="value in juniorskeys">{{row[value]}} </td><!--
-                <td><button class="btn btn-primary" ng-click="viewUser(row.userid)">VIEW</button></td>-->
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <br />
-
-    <div class="panel panel-primary filterable" ng-show="gotSeniors">
-        <div class="panel-heading" >
-            <h3 class="panel-title">{{userinfo.name | uppercase}}'s Seniors</h3>
+        <div ng-show="tab['seniors']">
+            <div class="panel panel-primary filterable" ng-show="gotSeniors">
+                <div class="panel-heading" >
+                    <h3 class="panel-title">{{userinfo.name | uppercase}}'s Seniors</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr class="filters">
+                        <th ng-repeat="heading in seniorsheander" class="text-center">{{heading}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in seniorsData">
+                        <td ng-repeat="value in seniorskeys">{{row[value]}} </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 ng-hide="gotSeniors">No Seniors</h3>
         </div>
-        <table class="table">
-            <thead>
-            <tr class="filters">
-                <th ng-repeat="heading in seniorsheander" class="text-center">{{heading}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in seniorsData">
-                <td ng-repeat="value in seniorskeys">{{row[value]}} </td>
-            </tr>
-            </tbody>
-        </table>
     </div>
-    <br />
-
 </div>
