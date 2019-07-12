@@ -637,8 +637,7 @@ module.exports = function(router){
                                             res.json({success: false, msg: "Activity already exists!"});
                                         }
                                         else { // update department, group, subgroup by adding new activity
-
-                                            if(activityname) {
+                                            /*if(activityname) {
                                                 Department.findOne({
                                                     "departmentname": departmentname,
                                                     "groups.groupname": groupname,
@@ -653,8 +652,7 @@ module.exports = function(router){
                                                         });
                                                     }
                                                 });
-                                            }
-                                            /*
+                                            }*/
                                             if (activityname) {
                                                 Department.updateOne({
                                                     "departmentname": departmentname,
@@ -677,7 +675,7 @@ module.exports = function(router){
                                                         })
                                                     }
                                                 })
-                                            }*/
+                                            }
                                         }
                                     }
                                 }
