@@ -25,7 +25,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 //const url = 'mongodb://localhost:27017/taskmanagement';
-const url = 'mongodb+srv://bhumesh1998:bhumesh1998@cluster0-ubi02.mongodb.net/taskmanagement?retryWrites=true&w=majority';
+const url = 'mongodb+srv://bhumesh1998:bhumesh1998@cluster0.n3dcusx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 mongoose.connect(url,function(err){
 	if(err){
 		console.log("failed to connect to database: " + err);
